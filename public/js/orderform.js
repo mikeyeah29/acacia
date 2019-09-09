@@ -51,6 +51,9 @@
 		if(optionName == steps[currentStep].option){
 			selected = 'selected';
 		}
+
+		console.log(optionName, ' == ', steps[currentStep].option);
+
 		return selected;
 	}
 
@@ -69,10 +72,11 @@
 			str += 	'<div class="option-box ' + optionSelected(attribute.options[i].name) + '" data-cost="' + attribute.options[i].cost + '">';
 				if(attribute.options[i].image_path != 'notyet'){
 					str += 	'<img src="storage/' + attribute.options[i].image_path + '">';
-				}else{
-					str += 	'<div class="no_img"></div>';
 				}
-		        str += 	'<div class="mt-2 d-flex justify-content-start align-items-start option-box__title">';
+				// }else{
+				// 	str += 	'<div class="no_img"></div>';
+				// }
+		        str += 	'<div class="mt-2 d-flex justify-content-start align-items-start option-box__title" data-name="' + attribute.options[i].name + '">';
 		        	str += 	'<div class="option-box__circle"></div>';
 			        str += 	'<p class="option-box__name"><span>' + attribute.options[i].name + '</span><span class="option-box__cost"> ' + cost + '</span></p>';
 		        str += 	'</div>';
@@ -147,6 +151,7 @@
 			// add is_active class to correct step
 			attributes.removeClass('is_active');
 			$(attributes[currentStep]).addClass('is_active');
+			stepChanged();
 		});
 
 	}
@@ -170,7 +175,7 @@
 		$('.option-box').removeClass('selected');
 		optionBox.addClass('selected');
 		steps[currentStep].cost = optionBox.data('cost');
-		steps[currentStep].option = optionBox.find('.option-box__title').text(); 
+		steps[currentStep].option = optionBox.find('.option-box__title').data('name'); 
 		updatePrice();
 	}
 
@@ -274,8 +279,17 @@
 		modalId: 'rwd-modal--order-summery',
 		btnSave: '#modal-send-order',
 		beforeOpen: function(done){
-			buildSummeryTable();
-			done();
+
+			errorBox.hide();
+
+			if(is_option_selected()){
+				buildSummeryTable();
+				done();
+			}else{
+				// show message
+				showError('Please select an option for ' + attr_title.text());
+			}
+	
 		},
 		saveChanges: function(done){
 			

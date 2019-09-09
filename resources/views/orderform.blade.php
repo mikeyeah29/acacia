@@ -67,7 +67,7 @@
                 </tr>
               </thead>
               <tbody id="order_table">
-                <tr>
+              <!--   <tr>
                   <th scope="row">1</th>
                   <td>Mark</td>
                   <td>Otto</td>
@@ -81,7 +81,7 @@
                   <th scope="row">3</th>
                   <td>Larry</td>
                   <td>the Bird</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
 
@@ -95,6 +95,14 @@
                 <div class="form__input-group">
                     <label class="form__label">Email</label>
                     <input type="email" id="q_email" class="form__input">
+                </div>
+                <div class="form__input-group">
+                    <label class="form__label">Country (for shipping quote)</label>
+                    <input type="email" id="q_country" class="form__input">
+                </div>
+                <div class="form__input-group">
+                    <label class="form__label">Comments</label>
+                    <textarea class="form__input"></textarea>
                 </div>
             </div>
 

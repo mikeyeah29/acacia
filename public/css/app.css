@@ -550,6 +550,10 @@ footer {
   }
 }
 
+.main_section {
+  margin-bottom: 300px;
+}
+
 /*=====================
 // Placeholders
 *======================*/
@@ -893,6 +897,7 @@ footer {
   min-width: 16px;
   border-radius: 100%;
   margin-right: 5px;
+  transition: 0.3s;
 }
 .option-box__noimg {
   padding: 4px;
@@ -925,6 +930,9 @@ footer {
 .option-box:hover .no_img {
   border: solid 2px #ccc;
   box-shadow: inset 4px 4px 0px #fff, inset -4px -4px 0px #fff;
+}
+.option-box:hover .option-box__circle {
+  border: solid 2px #aa2829;
 }
 .option-box .icon-close {
   position: absolute;
