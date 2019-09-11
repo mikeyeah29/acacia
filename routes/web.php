@@ -18,7 +18,13 @@ Auth::routes([ 'register' => false ]);
 // })->where('any', '.*');
 
 Route::get('/', 'PagesController@orderform');
+Route::get('/thankyou', 'PagesController@thankyou');
 
-Route::get('/orders', 'AdminController@orders')->name('orders');
+Route::get('/orders', 'OrdersController@index')->name('orders');
+Route::get('/orders/{order}', 'OrdersController@show')->name('order');
+
 Route::get('/attributes', 'AttributesController@index')->name('attributes');
 Route::post('/attributes', 'AttributesController@store')->name('attributes_store');
+
+Route::get('/settings', 'SettingsController@index')->name('settings');
+

@@ -25,3 +25,7 @@ function showMessage(message, error){
     msg.display();
     
 }
+
+// function hideMsg(){
+//     messageBox.empty().hide();
+// }

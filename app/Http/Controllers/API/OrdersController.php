@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Order;
+use App\OrderChoice;
+use App\Option;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
@@ -26,8 +29,6 @@ class OrdersController extends Controller
     {
         // validate order
 
-
-
         // create order
             // in create order on order model -> create order choices
     }
@@ -40,7 +41,48 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $totalPrice = 0;
+        $choseOptions = [];
+
+        // validate
+        request()->validate([
+            'name' => 'required',
+            'email' => 'email:rfc,dns',
+            'phone' => 'nullable',
+            'comments' => 'nullable',
+            'country' => 'nullable',
+            'chosen_options' => 'required:array'
+        ]);
+
+        $options = Option::findMany(json_decode($request->chosen_options));
+
+        $order = new Order();
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->phone = $request->phone;
+        $order->comments = $request->comments;
+        $order->country = $request->country;
+
+        foreach($options as $option) {
+            $totalPrice = $totalPrice + $option->cost;
+        }
+
+        $order->cost = $totalPrice;
+        $order->save();
+
+        foreach($options as $option) {
+            $choseOptions[] = array(
+                'order_id' => $order->id,
+                'attribute' => $option->attribute->name,
+                'chosen_option' => $option->name,
+                'name' => $option->name,
+                'cost' => $option->cost
+            );
+        }
+
+        OrderChoice::insert($choseOptions);
+
+        return response()->json(['message' => 'order created'], 200);
     }
 
     /**
@@ -85,6 +127,7 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return response()->json(['message' => 'Order deleted'], 200);
     }
 }

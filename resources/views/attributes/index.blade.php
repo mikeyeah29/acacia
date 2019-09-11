@@ -10,7 +10,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3">
-				<div class="attributes-list form-items">
+				<div class="attributes-list form-items" id="sortable">
 
 					<!-- <div class="attributes-list__item d-flex justify-content-between align-items-center" 
                 		 draggable="true"
@@ -32,7 +32,7 @@
 						<span>Add Option</span>
 						
 					</div>
-					<div class="option-list mt-5">
+					<div class="option-list mt-5" id="options">
 	                    <div class="option-box" v-for="option in options">
 	                    	<div class="icon icon-close" v-on:click="removeOption(option)"></div>
 	                    	<div class="option-box--img-edit">

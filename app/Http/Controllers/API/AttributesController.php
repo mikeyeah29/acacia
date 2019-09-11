@@ -15,7 +15,7 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::all();
+        $attributes = Attribute::orderBy('position', 'asc')->get();
         return response()->json(['attributes' => $attributes], 200);
     }
 
@@ -48,6 +48,19 @@ class AttributesController extends Controller
         $attribute->save();
 
         return response()->json(['message' => 'Attribute updated'], 200);
+    }
+
+    public function reorder(Request $request)
+    {
+        request()->validate([
+            'arrtids' => 'required'
+        ]);
+        // loop arr
+        foreach ($request->arrtids as $index => $attribute_id) {
+            Attribute::where('id', $attribute_id)->update(['position' => $index]);
+        }
+        // assign position in that order
+        return response()->json(['message' => 'Attributes reordered'], 200);
     }
 
     /**

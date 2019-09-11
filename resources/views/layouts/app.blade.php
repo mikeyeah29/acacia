@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -51,6 +52,9 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('attributes') }}" class="{{ $page == 'attributes' ? 'is-active' : '' }}">Attributes</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('settings') }}" class="{{ $page == 'settings' ? 'is-active' : '' }}">Settings</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}"

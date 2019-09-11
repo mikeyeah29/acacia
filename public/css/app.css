@@ -411,8 +411,18 @@ h1, h2, h3 {
   font-size: 24px;
 }
 
+.hdln_2-2 {
+  font-size: 24px;
+  border-bottom: solid 3px;
+  padding-bottom: 10px;
+}
+
 .acacia-red {
   color: #a82d2d;
+}
+
+.font-sm {
+  font-size: 18px;
 }
 
 header {
@@ -921,7 +931,7 @@ footer {
 }
 .option-box.selected .option-box__circle {
   background: url("../img/checkred.png");
-  border: none;
+  border: none !important;
 }
 .option-box:hover img {
   border: solid 2px #ccc;
@@ -1261,6 +1271,34 @@ footer {
   margin: 30px 0px;
   color: #8e1515;
   font-size: 18px;
+}
+
+.pagination {
+  -moz-justify-content: center;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 64px;
+}
+
+.page-link {
+  color: #000;
+}
+.page-link:hover {
+  color: #000;
+}
+
+.page-item.active .page-link {
+  background-color: #a82d2d;
+  border-color: #a82d2d;
+}
+
+.order-item__name {
+  width: 100px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.order-item__value {
+  width: 125px;
 }
 
 .is-displayed {

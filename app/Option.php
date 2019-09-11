@@ -20,4 +20,8 @@ class Option extends Model
         });
 
     }
+
+    public function attribute(){
+		return $this->belongsTo(Attribute::class);
+	}
 }

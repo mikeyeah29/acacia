@@ -12,10 +12,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('users')->truncate();
+
         User::create([
             'name' => 'Scott',
             'email' => 'scott@acacia.com',
-            'password' => Hash::make('acacia2019'),
+            'password' => Hash::make('acacia2019')
         ]);
     }
 }

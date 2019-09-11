@@ -9,7 +9,7 @@ class PagesController extends Controller
 {
     public function orderform(){
 
-    	$attributes = Attribute::all();
+    	$attributes = Attribute::orderBy('position', 'asc')->get();
 
 		return view('orderform', 
 			[
@@ -18,5 +18,15 @@ class PagesController extends Controller
 			]
 		);
     
+    }
+
+    public function thankyou(){
+
+    	return view('thankyou', 
+    		[
+    			'page' => 'thankyou'
+	    	]
+	    );
+
     }
 }

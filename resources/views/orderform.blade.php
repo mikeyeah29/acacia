@@ -66,23 +66,7 @@
                   <th scope="col">Cost</th>
                 </tr>
               </thead>
-              <tbody id="order_table">
-              <!--   <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                </tr> -->
-              </tbody>
+              <tbody id="order_table"></tbody>
             </table>
 
             <p class="text-center">Total: $<span class="elem_price"></span></p>
@@ -97,12 +81,16 @@
                     <input type="email" id="q_email" class="form__input">
                 </div>
                 <div class="form__input-group">
+                    <label class="form__label">Phone</label>
+                    <input type="text" id="q_phone" class="form__input">
+                </div>
+                <div class="form__input-group">
                     <label class="form__label">Country (for shipping quote)</label>
-                    <input type="email" id="q_country" class="form__input">
+                    <input type="text" id="q_country" class="form__input">
                 </div>
                 <div class="form__input-group">
                     <label class="form__label">Comments</label>
-                    <textarea class="form__input"></textarea>
+                    <textarea class="form__input" id="q_comments"></textarea>
                 </div>
             </div>
 

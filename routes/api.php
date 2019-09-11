@@ -20,8 +20,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/attributes', 'API\AttributesController@index');
 Route::get('/attributes/{attribute}', 'API\AttributesController@show');
 Route::middleware('auth:api')->post('/attributes/{attribute}', 'API\AttributesController@show');
+Route::middleware('auth:api')->post('/attributes/action/reorder', 'API\AttributesController@reorder');
 Route::middleware('auth:api')->post('/attributes/{attribute}', 'API\AttributesController@update');
 Route::middleware('auth:api')->delete('/attributes/{attribute}', 'API\AttributesController@destroy');
 
 Route::middleware('auth:api')->post('/attributes/{attribute}/options', 'API\AttributeOptionsController@store');
 Route::middleware('auth:api')->delete('/attributes/{attribute}/options/{option}', 'API\AttributeOptionsController@destroy');
+
+Route::post('/orders', 'API\OrdersController@store');
+Route::delete('/orders/{order}', 'API\OrdersController@destroy');

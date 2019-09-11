@@ -13,37 +13,6 @@
 		}
 	});
 
-	// var attrVue = new Vue({
-	// 	el: '.attributes-list',
-	// 	data: {
-	// 		attributes: []
-	// 	},
-	// 	methods: {
-	// 		loadAttribute: function(attId){
-	// 			page.addClass('ajax_loading');
-	// 			$.ajax({
-	// 				url: 'api/attributes/' + attId,
-	// 				method: 'get',
-	// 				data: {
-	// 					api_token: $('#datablock').data('api_token'),
-	// 					name: inpt_name.val()
-	// 				},
-	// 				success: function(data){
-	// 					console.log(data);
-	// 					page.removeClass('ajax_loading');
-	// 					current_attr_id = data.attribute.id;
-	// 					updateAttributeView(data.attribute);
-	// 				},
-	// 				error: function(a, b, c){
-	// 					console.log(a, b, c);
-	// 					page.removeClass('ajax_loading');
-	// 					showMessage(a.responseJSON.message, true);
-	// 				}
-	// 			});
-	// 		}
-	// 	}
-	// });
-
 	/*
 	*	VARIABLES
 	*============================*/
@@ -205,6 +174,35 @@
 		});
 	}
 
+	function updateAttributeOrder(){
+		page.addClass('ajax_loading');
+		var arrtids = [];
+		$('.attributes-list__item').each(function(){
+			arrtids.push($(this).data('att_id'));
+		});
+		$.ajax({
+			url: 'api/attributes/action/reorder',
+			method: 'post',
+			data: {
+				api_token: $('#datablock').data('api_token'),
+				arrtids: arrtids
+			},
+			success: function(data){
+				console.log(data);
+				page.removeClass('ajax_loading');
+			},
+			error: function(a, b, c){
+				console.log(a, b, c);
+				page.removeClass('ajax_loading');
+				showMessage(a.responseJSON.message, true);
+			}
+		});
+	}
+
+	function updateOptionsOrder(){
+
+	}
+
 	// View
 
 	function updateAttributeView(attribute){
@@ -350,5 +348,19 @@
 		});
 
 	});
+
+	$( "#sortable" ).sortable({
+		stop: function(){
+			updateAttributeOrder();
+		}
+	});
+    $( "#sortable" ).disableSelection();
+
+    $( "#options" ).sortable({
+		stop: function(){
+			updateOptionsOrder();
+		}
+	});
+    $( "#options" ).disableSelection();
 
 })();

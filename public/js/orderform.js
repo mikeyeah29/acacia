@@ -18,9 +18,19 @@
 
 	var order_table = $('#order_table');
 
+	var order_name = $('#q_name');
+	var order_email = $('#q_email');
+	var order_phone = $('#q_phone');
+	var order_country = $('#q_country');
+	var order_comments = $('#q_comments');
+
 	function showError(error){
 		errorTxt.text(error);
 		errorBox.show();
+	}
+
+	function hideError(){
+		errorBox.hide();
 	}
 
 	function loadAttribute(attId, cb){
@@ -51,9 +61,6 @@
 		if(optionName == steps[currentStep].option){
 			selected = 'selected';
 		}
-
-		console.log(optionName, ' == ', steps[currentStep].option);
-
 		return selected;
 	}
 
@@ -69,7 +76,7 @@
 			if(cost == '$0'){
 				cost = '(standard)';
 			}
-			str += 	'<div class="option-box ' + optionSelected(attribute.options[i].name) + '" data-cost="' + attribute.options[i].cost + '">';
+			str += 	'<div class="option-box ' + optionSelected(attribute.options[i].name) + '" data-cost="' + attribute.options[i].cost + '" data-option_id="' + attribute.options[i].id + '">';
 				if(attribute.options[i].image_path != 'notyet'){
 					str += 	'<img src="storage/' + attribute.options[i].image_path + '">';
 				}
@@ -175,7 +182,8 @@
 		$('.option-box').removeClass('selected');
 		optionBox.addClass('selected');
 		steps[currentStep].cost = optionBox.data('cost');
-		steps[currentStep].option = optionBox.find('.option-box__title').data('name'); 
+		steps[currentStep].option = optionBox.find('.option-box__title').data('name');
+		steps[currentStep].option_id = optionBox.data('option_id');
 		updatePrice();
 	}
 
@@ -212,6 +220,42 @@
 	}
 
 	function sendForm(cb){
+
+		hideError();
+		var chosen_options = [];
+		for(i=0; i<steps.length; i++) {
+			chosen_options.push(steps[i].option_id);
+		}
+
+		$.ajax({
+			url: 'api/orders',
+			method: 'post',
+			data: {
+				api_token: $('#datablock').data('api_token'),
+				name: order_name.val(),
+	            email: order_email.val(),
+	            phone: order_phone.val(),
+	            comments: order_comments.val(),
+	            country: order_country.val(),
+	            chosen_options: JSON.stringify(chosen_options)
+			},
+			success: function(data){
+				location.href = 'thankyou';
+			},
+			error: function(a, b, c){
+				console.log(a,b,c);
+				if(a.responseJSON.hasOwnProperty('errors')){
+					if(a.responseJSON.errors.hasOwnProperty('email')){
+						showError(a.responseJSON.errors['email'], true);
+					}else{
+						showError(a.responseJSON.message, true);
+					}
+				}else{
+					showError(a.responseJSON.message, true);
+				}
+				cb();
+			}
+		});
 
 	}
 
@@ -297,9 +341,7 @@
 				var thisModal = this;
 				thisModal.startLoading('ajax_loading');
 				sendForm(function(error){
-					if(!error){
-						thisModal.stopLoading('ajax_loading');
-					}
+					thisModal.stopLoading('ajax_loading');
 				});
 			}else{
 				showError(orderValidator.message);
