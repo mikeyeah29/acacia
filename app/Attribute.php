@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Attribute extends Model
 {
     public function options(){
-    	return $this->hasMany(Option::class);
+    	return $this->hasMany(Option::class)->orderBy('position', 'asc');  // orderBy('position', 'asc')
     }
 
     protected static function boot(){

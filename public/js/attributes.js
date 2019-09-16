@@ -136,14 +136,8 @@
 				api_token: $('#datablock').data('api_token')
 			},
 			success: function(data){
-				console.log(data);
-				if(attr_elements.length > 0){
-					loadAttribute($(attr_elements[0]).data('att_id'));
-				}else{
-					emptyAttribute();
-				}
+				location.reload();
 				showMessage(data.message, false);
-				cb();
 			},
 			error: function(a, b, c){
 				console.log(a, b, c);
@@ -200,7 +194,28 @@
 	}
 
 	function updateOptionsOrder(){
-
+		page.addClass('ajax_loading');
+		var optionids = [];
+		$('.option-box').each(function(){
+			optionids.push($(this).data('option_id'));
+		});
+		$.ajax({
+			url: 'api/attributes/' + current_attr_id + '/action/reorder',
+			method: 'post',
+			data: {
+				api_token: $('#datablock').data('api_token'),
+				optionids: optionids
+			},
+			success: function(data){
+				console.log(data);
+				page.removeClass('ajax_loading');
+			},
+			error: function(a, b, c){
+				console.log(a, b, c);
+				page.removeClass('ajax_loading');
+				showMessage(a.responseJSON.message, true);
+			}
+		});
 	}
 
 	// View

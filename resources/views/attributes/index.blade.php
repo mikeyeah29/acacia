@@ -33,7 +33,7 @@
 						
 					</div>
 					<div class="option-list mt-5" id="options">
-	                    <div class="option-box" v-for="option in options">
+	                    <div class="option-box" v-for="option in options" :data-option_id="option.id">
 	                    	<div class="icon icon-close" v-on:click="removeOption(option)"></div>
 	                    	<div class="option-box--img-edit">
 		                        <img :src="'storage/' + option.image_path" v-if="option.image_path != 'notyet'">
@@ -41,7 +41,7 @@
 		                    </div>
 	                        <div class="d-flex justify-content-between align-items-center option-box__title">
 	                            <p class="option-box__name">@{{ option.name }}</p>
-	                            <div class="icon icon-edit ml-auto"></div>
+	                            <!-- <div class="icon icon-edit ml-auto"></div> -->
 	                        </div>
 	                    </div>
 	                </div>
@@ -72,7 +72,7 @@
 						<label class="form__label">Attribute Name</label>
 						<input class="form__input" type="text" name="name" value="{{ old('name') }}">
 					</div>
-					<div class="form__input-group">
+					<!-- <div class="form__input-group">
 						<p class="form__input-note mt-4">If this attribute is dependant on a previous option, select it here</p>
 						<select class="form__input" type="text" id="inpt_select">
 							<option value="">- select dependency -</option>
@@ -80,7 +80,7 @@
 					</div>
 					<div class="form__input-group">
 						<input type="text" class="form__input" id="inpt_dep_value" placeholder="Dependency option...">
-					</div>
+					</div> -->
 				</div>
 
 				@if($errors->any())

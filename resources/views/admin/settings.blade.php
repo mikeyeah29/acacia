@@ -13,11 +13,12 @@
 					<tr>
 						<th><p class="font-sm">{{ $setting->key }}:</p></th>
 						<td>
-							<form class="form pt-0">
+							<form action="settings/{{ $setting->id }}" method="POST" class="form pt-0">
+								@csrf()
 								<div class="form__input-group ">
-									<input class="form__input" type="text" value="{{ $setting->value }}">
+									<input class="form__input" type="text" value="{{ $setting->value }}" name="value">
 								</div>
-								<button class="btn">Save</button>
+								<button class="btn" type="submit">Save</button>
 							</form>
 						</td>
 					</tr>
@@ -27,6 +28,19 @@
 		</div>
 
 	</div>
+
+	@if($errors->any())
+	    <div class="row">
+	    	<div class="col-12">
+	    		@foreach($errors->all() as $error)
+
+	    			<div class="error-box__msg">{{ $error }}</div>
+
+	    		@endforeach
+	    	</div>
+	    </div>
+	@endif
+
 </div>
 
 @endsection

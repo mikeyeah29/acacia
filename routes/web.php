@@ -27,4 +27,4 @@ Route::get('/attributes', 'AttributesController@index')->name('attributes');
 Route::post('/attributes', 'AttributesController@store')->name('attributes_store');
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
-
+Route::post('/settings/{setting}', 'SettingsController@update')->name('updateSettings');

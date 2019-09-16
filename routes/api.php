@@ -25,6 +25,7 @@ Route::middleware('auth:api')->post('/attributes/{attribute}', 'API\AttributesCo
 Route::middleware('auth:api')->delete('/attributes/{attribute}', 'API\AttributesController@destroy');
 
 Route::middleware('auth:api')->post('/attributes/{attribute}/options', 'API\AttributeOptionsController@store');
+Route::middleware('auth:api')->post('/attributes/{attribute}/action/reorder', 'API\AttributeOptionsController@reorder');
 Route::middleware('auth:api')->delete('/attributes/{attribute}/options/{option}', 'API\AttributeOptionsController@destroy');
 
 Route::post('/orders', 'API\OrdersController@store');

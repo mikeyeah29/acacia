@@ -45,4 +45,17 @@ class AttributeOptionsController extends Controller
         $option->delete();
         return response()->json(['message' => 'Option deleted'], 200);
     }
+
+    public function reorder(Request $request)
+    {
+        request()->validate([
+            'optionids' => 'required'
+        ]);
+        // loop arr
+        foreach ($request->optionids as $index => $optionid) {
+            Option::where('id', $optionid)->update(['position' => $index]);
+        }
+        // assign position in that order
+        return response()->json(['message' => 'Options reordered'], 200);
+    }
 }
